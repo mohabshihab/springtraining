@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans  
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.afit.training.springmvc" />
+	<context:annotation-config />
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+	<!-- (1) Bean Name Mapping Handler -->
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+	<bean name="/welcome" class="com.afit.training.springmvc.WelcomeController" />
+	
+	
+	<!-- (2) Simple URL Mapping Handler -->
+	<bean id="welcome" name="ahmed" class="com.afit.training.springmvc.WelcomeSimpleURLController" />	
+	
+	<bean  class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/simpleUrlWelcome">welcome</prop>
+				<prop key="/**/simpleUrlWelcome">welcome</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- (3) ControllerClassNameHandlerMapping (deprecated) -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+	<bean class="com.afit.training.springmvc.WelcomeController" /> -->
+	
+	
+	
+</beans>
